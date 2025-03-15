@@ -642,86 +642,86 @@ app.layout = dbc.Container([
                     ])
                 ], label="Training Curve", tab_id="tab-training"),
                 
-                dbc.Tab([
-                    dbc.Row([
-                        dbc.Col([
-                            # Training controls
-                            dbc.Card([
-                                dbc.CardHeader("Training Controls"),
-                                dbc.CardBody([
-                                    dbc.Row([
-                                        dbc.Col([
-                                            html.Label("Learning Rate:"),
-                                            dcc.Slider(
-                                                id='realtime-learning-rate-slider',
-                                                min=-4,
-                                                max=-1,
-                                                step=1,
-                                                marks={i: f"10^{i}" for i in range(-4, 0)},
-                                                value=-2  # Default 0.01
-                                            )
-                                        ], width=6),
-                                        dbc.Col([
-                                            html.Label("Epochs:"),
-                                            dcc.Slider(
-                                                id='realtime-epochs-slider',
-                                                min=10,
-                                                max=1000,
-                                                step=10,
-                                                marks={i: str(i) for i in [10, 100, 500, 1000]},
-                                                value=100
-                                            )
-                                        ], width=6)
-                                    ]),
-                                    html.Div(className="mb-3"),
-                                    dbc.Row([
-                                        dbc.Col([
-                                            dbc.Button("Start Training", id="start-training-button", color="success", className="w-100"),
-                                        ], width=6),
-                                        dbc.Col([
-                                            dbc.Button("Stop Training", id="stop-training-button", color="danger", className="w-100"),
-                                        ], width=6)
-                                    ])
-                                ])
-                            ]),
+    #             dbc.Tab([
+    #                 dbc.Row([
+    #                     dbc.Col([
+    #                         # Training controls
+    #                         dbc.Card([
+    #                             dbc.CardHeader("Training Controls"),
+    #                             dbc.CardBody([
+    #                                 dbc.Row([
+    #                                     dbc.Col([
+    #                                         html.Label("Learning Rate:"),
+    #                                         dcc.Slider(
+    #                                             id='realtime-learning-rate-slider',
+    #                                             min=-4,
+    #                                             max=-1,
+    #                                             step=1,
+    #                                             marks={i: f"10^{i}" for i in range(-4, 0)},
+    #                                             value=-2  # Default 0.01
+    #                                         )
+    #                                     ], width=6),
+    #                                     dbc.Col([
+    #                                         html.Label("Epochs:"),
+    #                                         dcc.Slider(
+    #                                             id='realtime-epochs-slider',
+    #                                             min=10,
+    #                                             max=1000,
+    #                                             step=10,
+    #                                             marks={i: str(i) for i in [10, 100, 500, 1000]},
+    #                                             value=100
+    #                                         )
+    #                                     ], width=6)
+    #                                 ]),
+    #                                 html.Div(className="mb-3"),
+    #                                 dbc.Row([
+    #                                     dbc.Col([
+    #                                         dbc.Button("Start Training", id="start-training-button", color="success", className="w-100"),
+    #                                     ], width=6),
+    #                                     dbc.Col([
+    #                                         dbc.Button("Stop Training", id="stop-training-button", color="danger", className="w-100"),
+    #                                     ], width=6)
+    #                                 ])
+    #                             ])
+    #                         ]),
                             
-                            # Real-time training visualization
-                            dbc.Card([
-                                dbc.CardHeader("Training Progress"),
-                                dbc.CardBody([
-                                    html.Div(id="training-status", children=[
-                                        html.P("Not training", id="training-message"),
-                                        dbc.Progress(id="training-progress", value=0, striped=True, animated=True)
-                                    ]),
-                                    html.Div(className="mb-3"),
-                                    dcc.Graph(id="training-metrics", style={"height": "300px"}),
-                                    # Hidden div for storing training state
-                                    html.Div(id="is-training", style={"display": "none"}, **{"data-json": "false"}),
-                                    # Interval component for updating visualizations
-                                    dcc.Interval(id="training-interval", interval=100, disabled=True)
-                                ])
-                            ], className="mt-3"),
+    #                         # Real-time training visualization
+    #                         dbc.Card([
+    #                             dbc.CardHeader("Training Progress"),
+    #                             dbc.CardBody([
+    #                                 html.Div(id="training-status", children=[
+    #                                     html.P("Not training", id="training-message"),
+    #                                     dbc.Progress(id="training-progress", value=0, striped=True, animated=True)
+    #                                 ]),
+    #                                 html.Div(className="mb-3"),
+    #                                 dcc.Graph(id="training-metrics", style={"height": "300px"}),
+    #                                 # Hidden div for storing training state
+    #                                 html.Div(id="is-training", style={"display": "none"}, **{"data-json": "false"}),
+    #                                 # Interval component for updating visualizations
+    #                                 dcc.Interval(id="training-interval", interval=100, disabled=True)
+    #                             ])
+    #                         ], className="mt-3"),
                             
-                            # Real-time decision boundary visualization
-                            dbc.Card([
-                                dbc.CardHeader("Real-time Decision Boundary"),
-                                dbc.CardBody([
-                                    dcc.Graph(id="realtime-decision-boundary", style={"height": "400px"})
-                                ])
-                            ], className="mt-3"),
+    #                         # Real-time decision boundary visualization
+    #                         dbc.Card([
+    #                             dbc.CardHeader("Real-time Decision Boundary"),
+    #                             dbc.CardBody([
+    #                                 dcc.Graph(id="realtime-decision-boundary", style={"height": "400px"})
+    #                             ])
+    #                         ], className="mt-3"),
                             
-                            # Add this to the network architecture tab layout
-                            html.Div([
-                                dbc.Button(
-                                    "View Training Animation", 
-                                    id="view-training-button", 
-                                    color="info", 
-                                    className="mt-3"
-                                )
-                            ])
-                        ], width=12)
-                    ])
-                ], label="Real-time Training", tab_id="tab-realtime-training")
+    #                         # Add this to the network architecture tab layout
+    #                         html.Div([
+    #                             dbc.Button(
+    #                                 "View Training Animation", 
+    #                                 id="view-training-button", 
+    #                                 color="info", 
+    #                                 className="mt-3"
+    #                             )
+    #                         ])
+    #                     ], width=12)
+    #                 ])
+    #             ], label="Real-time Training", tab_id="tab-realtime-training")
             ], id="tabs", active_tab="tab-architecture")
         ], width=9)
     ]),
@@ -3167,294 +3167,7 @@ def update_dataset_visualization(dataset_type, noise_level, problem_type):
     
     return fig
 
-# Callback to update training progress UI elements
-@app.callback(
-    [Output("training-message", "children"),
-     Output("training-progress", "value")],
-    [Input("training-interval", "n_intervals")],
-    [State("is-training", "data-json")]
-)
-def update_training_progress(n_intervals, is_training_json):
-    if not is_training_json or is_training_json == "false":
-        return "Not training", 0
-    
-    training_state_local = json.loads(is_training_json)
-    progress = (training_state_local["current_epoch"] / training_state_local["total_epochs"]) * 100
-    
-    return f"Training: Epoch {training_state_local['current_epoch']}/{training_state_local['total_epochs']}", progress
-
-# Callback for training control buttons
-@app.callback(
-    [Output("training-interval", "disabled"),
-     Output("is-training", "data-json")],
-    [Input("start-training-button", "n_clicks"),
-     Input("stop-training-button", "n_clicks")],
-    [State("realtime-epochs-slider", "value"),
-     State("realtime-learning-rate-slider", "value"),
-     State("is-training", "data-json")]
-)
-def control_training(start_clicks, stop_clicks, epochs, learning_rate_exp, is_training_json):
-    ctx = dash.callback_context
-    if not ctx.triggered:
-        return True, "false"
-    
-    button_id = ctx.triggered[0]["prop_id"].split(".")[0]
-    
-    if button_id == "start-training-button" and start_clicks:
-        # Start training
-        training_state["is_training"] = True
-        training_state["current_epoch"] = 0
-        training_state["total_epochs"] = epochs
-        training_state["loss_history"] = []
-        training_state["accuracy_history"] = []
-        
-        # Convert learning rate from exponent
-        learning_rate = 10 ** learning_rate_exp
-        training_state["learning_rate"] = learning_rate
-        
-        return False, json.dumps(training_state)
-    
-    elif button_id == "stop-training-button" and stop_clicks:
-        # Stop training
-        training_state["is_training"] = False
-        return True, "false"
-    
-    # Default - no change
-    return dash.no_update, dash.no_update
-
-# Modify the training_step callback to include network graph updates
-@app.callback(
-    [Output("training-metrics", "figure"),
-     Output("realtime-decision-boundary", "figure"),
-     Output("network-graph", "figure", allow_duplicate=True),  # This is the key output
-     Output("is-training", "data-json", allow_duplicate=True)],
-    [Input("training-interval", "n_intervals")],
-    [State("is-training", "data-json"),
-     State("model-type-dropdown", "value"),
-     State("dataset-dropdown", "value"),
-     State("problem-type-dropdown", "value"),
-     State("noise-slider", "value"),
-     State("n-layers-slider", "value"),
-     State({"type": "layer-neurons", "index": dash.dependencies.ALL}, "value"),
-     State({"type": "layer-activation", "index": dash.dependencies.ALL}, "value")],
-    prevent_initial_call=True
-)
-def training_step(n_intervals, is_training_json, model_type, dataset_type, problem_type, 
-                 noise_level, n_layers, neurons, activations):
-    if not is_training_json or is_training_json == "false":
-        raise dash.exceptions.PreventUpdate
-    
-    training_state_local = json.loads(is_training_json)
-    
-    if not training_state_local["is_training"]:
-        raise dash.exceptions.PreventUpdate
-    
-    # Increment epoch
-    training_state_local["current_epoch"] += 1
-    current_epoch = training_state_local["current_epoch"]
-    total_epochs = training_state_local["total_epochs"]
-    
-    # Create metrics figure - THIS WAS MISSING
-    loss = 1.0 / (current_epoch + 1) + np.random.normal(0, 0.05)
-    accuracy = min(0.99, 0.5 + 0.5 * (current_epoch / total_epochs) + np.random.normal(0, 0.02))
-    
-    # Update history
-    loss_history = training_state_local.get("loss_history", [])
-    accuracy_history = training_state_local.get("accuracy_history", [])
-    loss_history.append(loss)
-    accuracy_history.append(accuracy)
-    training_state_local["loss_history"] = loss_history
-    training_state_local["accuracy_history"] = accuracy_history
-    
-    # Create metrics figure
-    metrics_fig = go.Figure()
-    epochs = list(range(1, len(loss_history) + 1))
-    
-    metrics_fig.add_trace(go.Scatter(
-        x=epochs,
-        y=loss_history,
-        mode="lines+markers",
-        name="Loss",
-        line=dict(color="red", width=2)
-    ))
-    
-    metrics_fig.add_trace(go.Scatter(
-        x=epochs,
-        y=accuracy_history,
-        mode="lines+markers",
-        name="Accuracy",
-        line=dict(color="green", width=2)
-    ))
-    
-    metrics_fig.update_layout(
-        title=f"Training Metrics - Epoch {current_epoch}/{total_epochs}",
-        xaxis_title="Epoch",
-        yaxis_title="Value",
-        plot_bgcolor="white"
-    )
-    
-    # Create decision boundary figure - THIS WAS MISSING
-    decision_fig = go.Figure()
-    
-    # Create a dynamic visualization that clearly changes
-    theta = np.linspace(0, 2*np.pi, 100)
-    progress = current_epoch / total_epochs
-    
-    # Outer circle (fixed reference)
-    decision_fig.add_trace(go.Scatter(
-        x=np.cos(theta), 
-        y=np.sin(theta),
-        mode="lines",
-        line=dict(color="lightgray", width=1),
-        name="Target"
-    ))
-    
-    # Progress circle (grows with training)
-    decision_fig.add_trace(go.Scatter(
-        x=progress * np.cos(theta), 
-        y=progress * np.sin(theta),
-        mode="lines",
-        line=dict(color="blue", width=2),
-        fill="toself",
-        name="Progress"
-    ))
-    
-    decision_fig.update_layout(
-        title=f"Decision Boundary - Epoch {current_epoch}/{total_epochs}",
-        xaxis=dict(range=[-1.2, 1.2], title="Feature 1"),
-        yaxis=dict(range=[-1.2, 1.2], title="Feature 2"),
-        plot_bgcolor="white"
-    )
-    
-    # Now, update the network visualization to show animation
-    # This is the key part for animating the model architecture
-    
-    # 1. Update node activations based on training progress
-    for node in network_state['nodes']:
-        # Generate activation values that change with training
-        if 'neuron_idx' in node:
-            # Create a wave pattern that changes with epoch
-            wave_factor = np.sin(current_epoch / 5 + node.get('neuron_idx', 0) / 2)
-            activation_value = 0.5 + 0.5 * wave_factor  # Range from 0 to 1
-            
-            # Store the activation value
-            node['a_val'] = activation_value
-            
-            # Update node color based on activation
-            # Bright red for high activation, blue for low
-            r = int(255 * activation_value)
-            b = int(255 * (1 - activation_value))
-            node['color'] = f'rgb({r}, 100, {b})'
-            
-            # Update node size based on activation
-            base_size = node.get('base_size', 15)  # Store original size if not already stored
-            if 'base_size' not in node:
-                node['base_size'] = base_size
-            
-            # Make node size pulse with activation
-            size_factor = 1 + 0.5 * activation_value
-            node['size'] = base_size * size_factor
-    
-    # 2. Update edge weights based on training progress
-    for edge in network_state.get('edges', []):
-        # Generate weight values that converge with training
-        source_idx = edge.get('source_idx', 0)
-        target_idx = edge.get('target_idx', 0)
-        
-        # Initial random weight if not set
-        if 'initial_weight' not in edge:
-            edge['initial_weight'] = np.random.normal(0, 1)
-        
-        # Target weight (where training would converge to)
-        if 'target_weight' not in edge:
-            edge['target_weight'] = np.random.normal(0, 0.5)
-        
-        # Calculate current weight based on training progress
-        progress = min(1.0, current_epoch / (total_epochs * 0.7))  # Converge by 70% of training
-        current_weight = edge['initial_weight'] + progress * (edge['target_weight'] - edge['initial_weight'])
-        
-        # Add some oscillation for visual effect
-        oscillation = 0.1 * np.sin(current_epoch / 3 + source_idx + target_idx)
-        current_weight += oscillation
-        
-        # Store the weight
-        edge['weight'] = current_weight
-        
-        # Update edge width based on weight magnitude
-        width = 1 + 3 * abs(current_weight)
-        edge['width'] = width
-        
-        # Update edge color based on weight sign
-        if current_weight > 0:
-            # Positive weights: blue, stronger = darker
-            intensity = int(200 - 150 * min(1, abs(current_weight)))
-            edge['color'] = f'rgba(0, 0, {intensity}, 0.8)'
-        else:
-            # Negative weights: red, stronger = darker
-            intensity = int(200 - 150 * min(1, abs(current_weight)))
-            edge['color'] = f'rgba({intensity}, 0, 0, 0.8)'
-    
-    # 3. Create the updated network figure
-    network_fig = create_network_figure()
-    
-    # 4. Update the layout to show training progress
-    network_fig.update_layout(
-        title=f"Network Architecture - Training Epoch {current_epoch}/{total_epochs}",
-        scene=dict(
-            annotations=[
-                dict(
-                    showarrow=False,
-                    x=0.5,
-                    y=0.5,
-                    z=0,
-                    text=f"Training Progress: {current_epoch}/{total_epochs}",
-                    xanchor="center",
-                    xshift=0,
-                    opacity=0.7
-                )
-            ]
-        )
-    )
-    
-    # Check if training is complete
-    if current_epoch >= total_epochs:
-        training_state_local["is_training"] = False
-    
-    return metrics_fig, decision_fig, network_fig, json.dumps(training_state_local)
-
-# Add a callback to link the button to the training tab
-@app.callback(
-    Output("tabs", "active_tab"),
-    [Input("view-training-button", "n_clicks")],
-    prevent_initial_call=True
-)
-def switch_to_training_tab(n_clicks):
-    if n_clicks:
-        return "tab-realtime-training"
-    raise PreventUpdate
-
-# Add to your layout in the real-time training tab
-html.Div([
-    html.Label("Animation Speed:"),
-    dcc.Slider(
-        id="animation-speed-slider",
-        min=100,
-        max=2000,
-        step=100,
-        marks={i: f"{i}ms" for i in range(100, 2001, 300)},
-        value=500
-    )
-], className="mt-3"),
-
-# Add a callback to control animation speed
-@app.callback(
-    Output("training-interval", "interval"),
-    [Input("animation-speed-slider", "value")]
-)
-def update_animation_speed(value):
-    return value
-
 # Run the app with suppress_callback_exceptions=True
 if __name__ == '__main__':
-    app.config.suppress_callback_exceptions = True
-    app.run_server(debug=True, host='0.0.0.0')
+    # app.config.suppress_callback_exceptions = True
+    app.run_server(debug=False)
