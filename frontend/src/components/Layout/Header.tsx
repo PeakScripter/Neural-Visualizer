@@ -1,4 +1,4 @@
-import { Activity, Film, Sun, Moon, Terminal } from 'lucide-react';
+import { Activity, Film, Sun, Moon, Terminal, BookOpen } from 'lucide-react';
 import { useTheme, type Theme } from '../../contexts/ThemeContext';
 
 const THEMES: { id: Theme; label: string; icon: React.ReactNode; dot: string }[] = [
@@ -11,9 +11,10 @@ const THEMES: { id: Theme; label: string; icon: React.ReactNode; dot: string }[]
 interface Props {
   onCinema: () => void;
   cinemaDisabled: boolean;
+  onTutorial: () => void;
 }
 
-export function Header({ onCinema, cinemaDisabled }: Props) {
+export function Header({ onCinema, cinemaDisabled, onTutorial }: Props) {
   const { theme, setTheme } = useTheme();
 
   return (
@@ -65,6 +66,22 @@ export function Header({ onCinema, cinemaDisabled }: Props) {
               </button>
             ))}
           </div>
+
+          {/* Tutorial button */}
+          <button
+            data-tour="tour-btn"
+            onClick={onTutorial}
+            title="Start guided tour"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all border"
+            style={{
+              background: 'rgba(16,185,129,0.1)',
+              borderColor: 'rgba(16,185,129,0.4)',
+              color: '#6ee7b7',
+            }}
+          >
+            <BookOpen size={13} />
+            <span>Tour</span>
+          </button>
 
           {/* Cinema button */}
           <button

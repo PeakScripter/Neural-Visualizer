@@ -47,7 +47,7 @@ export function NetworkConfig() {
   };
 
   return (
-    <div className="card">
+    <div className="card" data-tour="network-config-panel">
       <div
         className="card-header cursor-pointer select-none"
         onClick={() => setExpanded(!expanded)}
@@ -60,7 +60,7 @@ export function NetworkConfig() {
       {expanded && (
         <div className="p-4 space-y-4">
           {/* Model type grid */}
-          <div>
+          <div data-tour="model-type">
             <label className="label-base">Model Type</label>
             <div className="grid grid-cols-4 gap-1">
               {MODEL_TYPES.map((m) => (
@@ -80,7 +80,7 @@ export function NetworkConfig() {
           </div>
 
           {/* Loss function */}
-          <div>
+          <div data-tour="loss-fn">
             <label className="label-base">Loss Function</label>
             <select
               className="select-base"
@@ -93,8 +93,44 @@ export function NetworkConfig() {
             </select>
           </div>
 
+          {/* Input / Output nodes */}
+          <div className="grid grid-cols-2 gap-2" data-tour="input-output">
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="label-base mb-0">Input Nodes</label>
+                <span className="text-sm font-bold" style={{ color: 'var(--accent)' }}>{networkConfig.input_nodes}</span>
+              </div>
+              <input
+                type="range"
+                min={1} max={16} step={1}
+                value={networkConfig.input_nodes}
+                onChange={(e) => setNetworkConfig({ input_nodes: +e.target.value })}
+                className="w-full"
+              />
+              <div className="flex justify-between text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>
+                <span>1</span><span>16</span>
+              </div>
+            </div>
+            <div>
+              <div className="flex justify-between items-center mb-1.5">
+                <label className="label-base mb-0">Output Nodes</label>
+                <span className="text-sm font-bold" style={{ color: 'var(--accent)' }}>{networkConfig.output_nodes}</span>
+              </div>
+              <input
+                type="range"
+                min={1} max={10} step={1}
+                value={networkConfig.output_nodes}
+                onChange={(e) => setNetworkConfig({ output_nodes: +e.target.value })}
+                className="w-full"
+              />
+              <div className="flex justify-between text-xs mt-0.5" style={{ color: 'var(--text-faint)' }}>
+                <span>1</span><span>10</span>
+              </div>
+            </div>
+          </div>
+
           {/* Number of layers */}
-          <div>
+          <div data-tour="hidden-layers">
             <div className="flex justify-between items-center mb-1.5">
               <label className="label-base mb-0">Hidden Layers</label>
               <span className="text-sm font-bold" style={{ color: 'var(--accent)' }}>{networkConfig.n_layers}</span>
@@ -122,7 +158,7 @@ export function NetworkConfig() {
           </div>
 
           {/* Layer controls */}
-          <div>
+          <div data-tour="layer-config">
             <div className="flex items-center gap-2 mb-2">
               <Layers size={12} className="text-gray-500" />
               <label className="label-base mb-0">Layer Configuration</label>
@@ -168,7 +204,7 @@ export function NetworkConfig() {
           </div>
 
           {/* Regularization */}
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2" data-tour="regularization">
             <div>
               <label className="label-base">Regularization</label>
               <select

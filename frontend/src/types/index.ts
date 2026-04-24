@@ -40,6 +40,8 @@ export interface NetworkConfig {
   loss_fn: string;
   reg_type: RegType;
   reg_rate: number;
+  input_nodes: number;
+  output_nodes: number;
 }
 
 export interface TrainingConfig {

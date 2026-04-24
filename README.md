@@ -35,6 +35,12 @@
 
 The entire application has been **rebuilt from scratch** — migrated from a single-file Dash/Plotly app to a modern **React + FastAPI** architecture with 15+ interactive visualization tabs, in-browser training, and a polished dark-mode UI.
 
+**Recent additions**
+- **Guided Tour** — 20-step interactive tutorial with pulsing element highlights and arrow badges; auto-starts on first visit, re-launchable from the header
+- **Input / Output node controls** — configure the exact number of input features (1–16) and output neurons (1–10) per architecture
+- **Code Template Editor** — write your own code scaffold using `{{variables}}` that auto-fill from current settings in real time (alongside the existing PyTorch / Keras generators)
+- **3D layout fix** — Transformer and other architectures with non-contiguous layer indices now render with even spacing in the 3D view
+
 ---
 
 ## 🧠 Supported Model Types
@@ -54,7 +60,7 @@ The entire application has been **rebuilt from scratch** — migrated from a sin
 ## 🚀 Features
 
 ### Network Building & Visualization
-- **Interactive Architecture Builder** — Configure layers, neurons per layer, activation functions (ReLU, Sigmoid, Tanh, LeakyReLU, ELU), loss functions, and regularization from a sidebar panel
+- **Interactive Architecture Builder** — Configure input nodes (1–16), output nodes (1–10), hidden layers (1–5), neurons per layer, activation functions (ReLU, Sigmoid, Tanh, LeakyReLU, ELU, SELU), loss functions, and regularization (L1 / L2 / L1L2) from the sidebar
 - **2D & 3D Network Graphs** — Toggle between a D3-powered 2D layout and a fully interactive Three.js 3D view with orbit controls
 - **Forward Propagation** — Step-by-step animation of data flowing through each layer with active node/edge highlighting
 - **Backpropagation** — Visualize gradient flow in reverse through the network
@@ -76,8 +82,10 @@ The entire application has been **rebuilt from scratch** — migrated from a sin
 - **Custom Activation Designer** — Draw your own activation function and watch it applied in a mini-network
 - **Architecture Comparison** — Side-by-side 3D compare of two different network configurations with stat bars (nodes, edges, params)
 - **Code Export** — Auto-generate ready-to-use PyTorch or Keras code from your current configuration; copy to clipboard with one click
+- **Code Template Editor** — Switch to the Template tab to write your own scaffold using `{{variables}}` (`{{n_layers}}`, `{{input_nodes}}`, `{{loss_fn_code}}`, etc.) that fill in real time from the active config
 
 ### UI & Experience
+- **Guided Tour** — 20-step interactive tutorial with pulsing highlights and directional arrow badges on every referenced UI element; auto-launches on first visit, re-accessible via the **Tour** button in the header; keyboard-navigable (← →, Esc)
 - **4 Themes** — Dark, Cyberpunk, Matrix, Paper (light mode)
 - **Cinema Mode** — Full-screen guided walkthrough of forward propagation with layer-by-layer narration, auto-play, and keyboard navigation
 - **Dataset Preview** — Live scatter plot of the selected synthetic dataset
@@ -104,10 +112,11 @@ Neural-Visualizer/
 ├── frontend/               # React 19 + TypeScript + Vite
 │   ├── src/
 │   │   ├── components/
-│   │   │   ├── Layout/          # Header with theme switcher
+│   │   │   ├── Layout/          # Header with theme switcher & Tour button
 │   │   │   ├── Sidebar/         # NetworkConfig, TrainingConfig panels
 │   │   │   ├── Visualizations/  # 15 visualization components
 │   │   │   ├── CinemaMode.tsx   # Full-screen guided walkthrough
+│   │   │   ├── Tutorial.tsx     # 20-step interactive guided tour
 │   │   │   ├── DatasetPreview.tsx
 │   │   │   └── DatasetUpload.tsx
 │   │   ├── api/            # Axios API client
@@ -194,15 +203,16 @@ Then open your browser at **http://localhost:5173**
 
 ## 📖 Usage
 
-1. **Select a model type** (ANN, CNN, RNN, LSTM, GAN, Transformer, Diffuser) and configure layers & activations
-2. **Click "Build Network"** to generate the architecture graph
-3. **Explore tabs** — switch between Architecture, Forward/Backward Propagation, Weights, Activations, and more
-4. **Toggle 2D/3D** to view the network in an interactive Three.js scene
-5. **Configure training parameters** (dataset, noise, learning rate, batch size, epochs) and click **"Simulate Training"**
-6. **View results** — training curves, decision boundaries, and loss landscapes
-7. **Try Live Training** — train in-browser with TensorFlow.js and watch loss/accuracy update in real-time
-8. **Launch Cinema Mode** for a narrated, auto-playing walkthrough of forward propagation
-9. **Export code** — generate PyTorch or Keras code for your architecture and copy it to your clipboard
+1. **Follow the Tour** — a 20-step guided tutorial launches automatically on first visit; click **Tour** in the header to reopen it at any time
+2. **Select a model type** (ANN, CNN, RNN, LSTM, GAN, Transformer, Diffuser) and configure input nodes, output nodes, hidden layers, neurons, and activations in the sidebar
+3. **Click "Build Network"** to generate the architecture graph
+4. **Explore tabs** — switch between Architecture, Forward/Backward Propagation, Weights, Activations, Pruning, and more
+5. **Toggle 2D/3D** to view the network in an interactive Three.js scene
+6. **Configure training parameters** (dataset, noise, learning rate, batch size, epochs) and click **"Simulate Training"**
+7. **View results** — training curves, decision boundaries, and loss landscapes
+8. **Try Live Training** — train in-browser with TensorFlow.js and watch loss/accuracy update in real-time
+9. **Launch Cinema Mode** for a narrated, auto-playing walkthrough of forward propagation
+10. **Export code** — generate PyTorch or Keras code, or open the **Template** tab to write and preview your own code scaffold with `{{variables}}`
 
 ---
 

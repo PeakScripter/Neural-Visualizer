@@ -20,7 +20,7 @@ export function TrainingConfig() {
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <div className="card">
+    <div className="card" data-tour="training-config-panel">
       <div
         className="card-header cursor-pointer select-none"
         onClick={() => setExpanded(!expanded)}
@@ -53,7 +53,7 @@ export function TrainingConfig() {
           </div>
 
           {/* Dataset */}
-          <div>
+          <div data-tour="dataset">
             <label className="label-base">Dataset</label>
             <div className="grid grid-cols-2 gap-1">
               {DATASETS.map((d) => (
@@ -109,7 +109,7 @@ export function TrainingConfig() {
           </div>
 
           {/* Learning rate */}
-          <div>
+          <div data-tour="lr-batch-epochs">
             <label className="label-base">Learning Rate</label>
             <div className="grid grid-cols-4 gap-1">
               {LR_VALUES.map((lr) => (

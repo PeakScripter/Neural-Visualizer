@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Network, Play, ArrowRight, ArrowLeft, Target, Mountain, TrendingUp,
@@ -27,6 +27,7 @@ import { PruningView } from './components/Visualizations/PruningView';
 import { CustomActivation } from './components/Visualizations/CustomActivation';
 import { ExportCode } from './components/Visualizations/ExportCode';
 import { CinemaMode } from './components/CinemaMode';
+import { Tutorial } from './components/Tutorial';
 
 import { useNetworkStore } from './store/networkStore';
 import * as api from './api/client';
@@ -59,6 +60,15 @@ export default function App() {
   const [buildStatus, setBuildStatus] = useState<Status>({ type: 'idle' });
   const [trainStatus, setTrainStatus] = useState<Status>({ type: 'idle' });
   const [cinemaOpen, setCinemaOpen] = useState(false);
+  const [tutorialOpen, setTutorialOpen] = useState(false);
+
+  // Auto-open tutorial on first visit
+  useEffect(() => {
+    if (!localStorage.getItem('nv_tutorial_seen')) {
+      setTutorialOpen(true);
+      localStorage.setItem('nv_tutorial_seen', '1');
+    }
+  }, []);
 
   const handleBuildNetwork = useCallback(async () => {
     setBuildStatus({ type: 'loading' });
@@ -115,7 +125,11 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden" style={{ background: 'var(--bg-base)' }}>
-      <Header onCinema={() => setCinemaOpen(true)} cinemaDisabled={!store.networkBuilt} />
+      <Header
+        onCinema={() => setCinemaOpen(true)}
+        cinemaDisabled={!store.networkBuilt}
+        onTutorial={() => setTutorialOpen(true)}
+      />
 
       <div className="flex flex-1 min-h-0 overflow-hidden">
         {/* Sidebar */}
@@ -137,7 +151,7 @@ export default function App() {
 
           {/* Action buttons */}
           <div className="space-y-2 pb-3">
-            <button onClick={handleBuildNetwork} disabled={buildStatus.type === 'loading'} className="btn-primary w-full flex items-center justify-center gap-2">
+            <button data-tour="build-btn" onClick={handleBuildNetwork} disabled={buildStatus.type === 'loading'} className="btn-primary w-full flex items-center justify-center gap-2">
               {buildStatus.type === 'loading' ? <><Loader2 size={15} className="animate-spin" />Building…</> : <><Zap size={15} />Build Network</>}
             </button>
             <button onClick={handleTraining} disabled={trainStatus.type === 'loading' || !store.networkBuilt} className="btn-secondary w-full flex items-center justify-center gap-2 text-sm">
@@ -167,6 +181,7 @@ export default function App() {
                 {TABS.filter(t => t.group === group).map(tab => (
                   <button
                     key={tab.id}
+                    data-tour={`tab-${tab.id}`}
                     onClick={() => store.setActiveTab(tab.id)}
                     className="flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium transition-all duration-150 whitespace-nowrap mr-0.5"
                     style={{
@@ -184,6 +199,7 @@ export default function App() {
             {/* 2D/3D toggle */}
             {['architecture','forward','backward','pruning'].includes(store.activeTab) && (
               <button
+                data-tour="toggle-3d"
                 onClick={() => store.setView3D(!store.view3D)}
                 className="ml-auto flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium border transition-all flex-shrink-0"
                 style={{
@@ -215,6 +231,8 @@ export default function App() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {tutorialOpen && <Tutorial onClose={() => setTutorialOpen(false)} />}
     </div>
   );
 }

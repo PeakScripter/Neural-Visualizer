@@ -73,6 +73,8 @@ export const useNetworkStore = create<NetworkState>((set) => ({
     loss_fn: 'Binary Cross Entropy',
     reg_type: 'None',
     reg_rate: 0.01,
+    input_nodes: 2,
+    output_nodes: 1,
   },
   trainingConfig: {
     problem_type: 'Classification',

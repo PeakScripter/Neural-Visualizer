@@ -226,9 +226,15 @@ function Scene({
     const xSpread = Math.min(14, numLayers * 2.5);
     const ySpread = Math.min(8, maxPerLayer * 0.55);
 
+    // Normalize layer indices to 0..numLayers-1 so sparse indices (e.g. transformer
+    // output at layer 20) don't push nodes far off-screen.
+    const sortedLayerKeys = [...byLayer.keys()].sort((a, b) => a - b);
+    const layerPosMap = new Map(sortedLayerKeys.map((key, i) => [key, i]));
+
     const map = new Map<number, [number, number, number]>();
     [...byLayer.entries()].forEach(([layerIdx, nodes]) => {
-      const x = numLayers <= 1 ? 0 : ((layerIdx / (numLayers - 1)) - 0.5) * xSpread;
+      const posIdx = layerPosMap.get(layerIdx)!;
+      const x = numLayers <= 1 ? 0 : ((posIdx / (numLayers - 1)) - 0.5) * xSpread;
       nodes.forEach((n, i) => {
         const y = nodes.length <= 1 ? 0 : ((i / (nodes.length - 1)) - 0.5) * ySpread;
         // Slight Z wobble to break up flat look without being extreme
