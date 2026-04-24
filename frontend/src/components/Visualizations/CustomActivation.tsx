@@ -27,7 +27,7 @@ function makeCustomActivation(points: [number, number][]) {
   });
 }
 
-function makeDataset(name: string): [number[][], number[]] {
+function makeDataset(_name: string): [number[][], number[]] {
   const N = 150; const X: number[][] = []; const y: number[] = [];
   for (let i = 0; i < N; i++) {
     const a = Math.random()*2*Math.PI, r = Math.random()<.5?.4:.9;
@@ -172,7 +172,7 @@ export function CustomActivation() {
     if (points.length < 2) return;
     stopRef.current = false; setResults([]); setRunning(true);
     const neurons = networkConfig.neurons.slice(0, networkConfig.n_layers);
-    const customAct = makeCustomActivation(points);
+    const _customAct = makeCustomActivation(points);
     const [X, y] = makeDataset(trainingConfig.dataset);
     const xT = tf.tensor2d(X), yT = tf.tensor1d(y, 'float32');
 

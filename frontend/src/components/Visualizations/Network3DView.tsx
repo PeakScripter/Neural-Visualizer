@@ -193,7 +193,7 @@ function Starfield() {
 
 
 // ── Tooltip HTML overlay (avoids 3D Text performance hit) ───────────────────
-function NodeTooltip({
+function _NodeTooltip({
   node,
   position,
   camera,
