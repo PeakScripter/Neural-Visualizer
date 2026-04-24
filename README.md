@@ -1,6 +1,6 @@
-<p align="center">
+<!-- <p align="center">
   <img src="https://github.com/user-attachments/assets/970498f7-008c-487b-b58e-5330f2770ca9" alt="Neural Visualizer" width="100%" />
-</p>
+</p> -->
 
 <h1 align="center">Neural Visualizer</h1>
 
@@ -17,6 +17,16 @@
   <img src="https://img.shields.io/badge/TensorFlow.js-FF6F00?logo=tensorflow&logoColor=white&style=flat-square" />
   <img src="https://img.shields.io/badge/Three.js-000000?logo=threedotjs&logoColor=white&style=flat-square" />
   <img src="https://img.shields.io/badge/License-GPL_v3-blue?style=flat-square" />
+</p>
+
+---
+
+## 🎬 Demo
+
+<p align="center">
+  <video src="assets/demo.mp4" width="100%" controls autoplay muted loop>
+    Your browser does not support the video tag.
+  </video>
 </p>
 
 ---

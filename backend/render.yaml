@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: neural-visualizer-api
+    runtime: python
+    repo: https://github.com/YOUR_USERNAME/Neural-Visualizer
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
