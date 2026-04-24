@@ -192,47 +192,6 @@ function Starfield() {
 }
 
 
-// ── Tooltip HTML overlay (avoids 3D Text performance hit) ───────────────────
-function _NodeTooltip({
-  node,
-  position,
-  camera,
-  size,
-}: {
-  node: NetworkNode;
-  position: [number, number, number];
-  camera: THREE.Camera;
-  size: { width: number; height: number };
-}) {
-  const vec = new THREE.Vector3(...position).project(camera);
-  const x = (vec.x * 0.5 + 0.5) * size.width;
-  const y = (-vec.y * 0.5 + 0.5) * size.height;
-
-  return (
-    <div
-      style={{
-        position: 'absolute',
-        left: x + 12,
-        top: y - 10,
-        pointerEvents: 'none',
-        background: 'rgba(9,13,19,0.92)',
-        border: '1px solid #374151',
-        borderRadius: 8,
-        padding: '7px 10px',
-        fontSize: 11,
-        color: '#e2e8f0',
-        whiteSpace: 'nowrap',
-        zIndex: 20,
-      }}
-    >
-      <div style={{ color: '#60a5fa', fontWeight: 700 }}>{node.name}</div>
-      <div style={{ color: '#9ca3af' }}>Type: <span style={{ color: '#a3e635' }}>{node.layer_type}</span></div>
-      <div style={{ color: '#9ca3af' }}>Value: <span style={{ color: '#34d399' }}>{node.value?.toFixed(4)}</span></div>
-      {node.activation && <div style={{ color: '#9ca3af' }}>Act: <span style={{ color: '#fb923c' }}>{node.activation}</span></div>}
-    </div>
-  );
-}
-
 // ── Scene ────────────────────────────────────────────────────────────────────
 function Scene({
   graph,

@@ -3,30 +3,6 @@ import * as tf from '@tensorflow/tfjs';
 import { Trash2, Play, Square, RotateCcw } from 'lucide-react';
 import { useNetworkStore } from '../../store/networkStore';
 
-// Piecewise-linear activation from drawn points
-function makeCustomActivation(points: [number, number][]) {
-  const sorted = [...points].sort((a, b) => a[0] - b[0]);
-  return (x: tf.Tensor) => tf.tidy(() => {
-    const xs = sorted.map(p => p[0]);
-    const ys = sorted.map(p => p[1]);
-    let result = tf.zerosLike(x);
-    for (let i = 0; i < xs.length - 1; i++) {
-      const x0 = xs[i], x1 = xs[i+1], y0 = ys[i], y1 = ys[i+1];
-      const t = x.sub(x0).div(x1 - x0).clipByValue(0, 1);
-      const seg = t.mul(y1 - y0).add(y0);
-      const mask = x.greaterEqual(x0).mul(x.less(x1));
-      result = result.add(seg.mul(mask));
-    }
-    // Clamp outside range
-    const minX = xs[0], maxX = xs[xs.length - 1];
-    const leftMask  = x.less(minX);
-    const rightMask = x.greaterEqual(maxX);
-    result = result.add(tf.scalar(ys[0]).mul(leftMask));
-    result = result.add(tf.scalar(ys[ys.length-1]).mul(rightMask));
-    return result;
-  });
-}
-
 function makeDataset(_name: string): [number[][], number[]] {
   const N = 150; const X: number[][] = []; const y: number[] = [];
   for (let i = 0; i < N; i++) {
@@ -172,7 +148,6 @@ export function CustomActivation() {
     if (points.length < 2) return;
     stopRef.current = false; setResults([]); setRunning(true);
     const neurons = networkConfig.neurons.slice(0, networkConfig.n_layers);
-    const _customAct = makeCustomActivation(points);
     const [X, y] = makeDataset(trainingConfig.dataset);
     const xT = tf.tensor2d(X), yT = tf.tensor1d(y, 'float32');
 
