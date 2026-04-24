@@ -10,7 +10,7 @@ import type {
 } from '../types';
 
 const BASE = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000';
-const api = axios.create({ baseURL: BASE, timeout: 30000 });
+const api = axios.create({ baseURL: BASE, timeout: 90000 });
 
 export const buildNetwork = (config: NetworkConfig): Promise<NetworkGraph> =>
   api.post('/api/build-network', config).then(r => r.data);
