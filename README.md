@@ -1,51 +1,217 @@
-# Neural Network Visualizer
-![image](https://github.com/user-attachments/assets/970498f7-008c-487b-b58e-5330f2770ca9)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/970498f7-008c-487b-b58e-5330f2770ca9" alt="Neural Visualizer" width="100%" />
+</p>
 
-An interactive Dash application for visualizing neural network architectures, training dynamics, and decision boundaries across multiple model types (ANN, CNN, RNN, LSTM, GAN, Transformer, Diffuser) with real-time forward/backward propagation visualization.
+<h1 align="center">Neural Visualizer</h1>
 
-## Features
+<p align="center">
+  <strong>Interactive deep-learning exploration in your browser</strong><br/>
+  Build, visualize, train, and export neural networks — from simple ANNs to Transformers & Diffusion models.
+</p>
 
-- **Multiple Model Types**: Visualize different neural network architectures including ANNs, CNNs, RNNs, LSTMs, GANs, Transformers, and Diffusion models
-- **Interactive Network Building**: Customize layer sizes, activation functions, and model-specific parameters
-- **Forward/Backward Propagation**: Step-by-step visualization of data flow through the network
-- **Decision Boundaries**: See how your model classifies data in real-time
-- **Loss Landscapes**: Visualize the optimization surface
-- **Dataset Generation**: Choose from various synthetic datasets with adjustable noise levels
+<p align="center">
+  <img src="https://img.shields.io/badge/React_19-61DAFB?logo=react&logoColor=black&style=flat-square" />
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/PyTorch-EE4C2C?logo=pytorch&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/TensorFlow.js-FF6F00?logo=tensorflow&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/Three.js-000000?logo=threedotjs&logoColor=white&style=flat-square" />
+  <img src="https://img.shields.io/badge/License-GPL_v3-blue?style=flat-square" />
+</p>
 
-## ⚠️ Work in Progress
+---
 
-**Real-time Training Visualization** is currently under development. This feature will allow users to observe network parameters and decision boundaries evolving during the training process.
+## ✨ What's New in v3.0
 
-## Getting Started
+The entire application has been **rebuilt from scratch** — migrated from a single-file Dash/Plotly app to a modern **React + FastAPI** architecture with 15+ interactive visualization tabs, in-browser training, and a polished dark-mode UI.
+
+---
+
+## 🧠 Supported Model Types
+
+| Model | Description |
+|---|---|
+| **ANN** | Fully-connected feedforward network |
+| **CNN** | Convolutional neural network with pooling layers |
+| **RNN** | Vanilla recurrent network |
+| **LSTM** | Long Short-Term Memory network |
+| **GAN** | Generator + Discriminator adversarial pair |
+| **Transformer** | Multi-head self-attention encoder |
+| **Diffuser** | U-Net style encoder–decoder with time embedding |
+
+---
+
+## 🚀 Features
+
+### Network Building & Visualization
+- **Interactive Architecture Builder** — Configure layers, neurons per layer, activation functions (ReLU, Sigmoid, Tanh, LeakyReLU, ELU), loss functions, and regularization from a sidebar panel
+- **2D & 3D Network Graphs** — Toggle between a D3-powered 2D layout and a fully interactive Three.js 3D view with orbit controls
+- **Forward Propagation** — Step-by-step animation of data flowing through each layer with active node/edge highlighting
+- **Backpropagation** — Visualize gradient flow in reverse through the network
+
+### Training & Analysis
+- **Simulated Training** — Run server-side training with PyTorch; view training curves (loss & accuracy per epoch)
+- **Live In-Browser Training (TF.js)** — Train your configured architecture entirely client-side using TensorFlow.js with real-time loss/accuracy canvas charts
+- **Decision Boundaries** — See how a trained model partitions the 2D input space for classification tasks
+- **Loss Landscape** — Explore the 3D optimization surface computed from the model's parameter space
+
+### Advanced Visualizations
+- **Weight Distribution Histograms** — Inspect per-layer weight distributions
+- **Layer Activation Heatmaps** — Visualize activations across neurons and layers
+- **Attention Heatmaps** — View self-attention weight matrices for Transformer models
+- **Network Pruning** — Interactively prune connections and observe the effect on the architecture
+
+### Tools
+- **Learning Rate Sweep** — Batch-compare 5 learning rates side-by-side, trained with TF.js
+- **Custom Activation Designer** — Draw your own activation function and watch it applied in a mini-network
+- **Architecture Comparison** — Side-by-side 3D compare of two different network configurations with stat bars (nodes, edges, params)
+- **Code Export** — Auto-generate ready-to-use PyTorch or Keras code from your current configuration; copy to clipboard with one click
+
+### UI & Experience
+- **4 Themes** — Dark, Cyberpunk, Matrix, Paper (light mode)
+- **Cinema Mode** — Full-screen guided walkthrough of forward propagation with layer-by-layer narration, auto-play, and keyboard navigation
+- **Dataset Preview** — Live scatter plot of the selected synthetic dataset
+- **Custom Dataset Upload** — Load your own CSV data
+- **Grouped Tab Bar** — 15 visualization tabs organized into Network · Analysis · Train · Tools groups
+- **Framer Motion Animations** — Smooth tab transitions, status toasts, and micro-interactions throughout
+
+### Datasets
+Choose from **4 synthetic datasets** with adjustable noise:
+- Circle · Gaussian · XOR · Spiral
+
+---
+
+## 🏗️ Architecture
+
+```
+Neural-Visualizer/
+├── backend/                # Python FastAPI server
+│   ├── main.py             # REST API endpoints
+│   ├── models.py           # PyTorch model definitions (7 architectures)
+│   ├── compute.py          # Graph building, propagation, training, landscapes
+│   ├── datasets.py         # Synthetic dataset generators
+│   └── requirements.txt
+├── frontend/               # React 19 + TypeScript + Vite
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── Layout/          # Header with theme switcher
+│   │   │   ├── Sidebar/         # NetworkConfig, TrainingConfig panels
+│   │   │   ├── Visualizations/  # 15 visualization components
+│   │   │   ├── CinemaMode.tsx   # Full-screen guided walkthrough
+│   │   │   ├── DatasetPreview.tsx
+│   │   │   └── DatasetUpload.tsx
+│   │   ├── api/            # Axios API client
+│   │   ├── store/          # Zustand state management
+│   │   ├── contexts/       # Theme context
+│   │   └── types/          # TypeScript type definitions
+│   └── package.json
+├── start.sh                # Launch both servers with one command
+├── Visualization.py        # Legacy Dash app (preserved)
+└── README.md
+```
+
+---
+
+## 📦 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| **Frontend** | React 19, TypeScript, Vite, Tailwind CSS |
+| **3D Rendering** | Three.js, React Three Fiber, Drei |
+| **2D Charts** | D3.js, Plotly.js, HTML Canvas |
+| **Animations** | Framer Motion |
+| **State** | Zustand |
+| **Icons** | Lucide React |
+| **In-Browser ML** | TensorFlow.js |
+| **Backend** | FastAPI, Uvicorn |
+| **ML Engine** | PyTorch, scikit-learn, NumPy, SciPy |
+
+---
+
+## 🛠️ Getting Started
 
 ### Prerequisites
-
-- Python 3.7+
-- Required packages: dash, plotly, pytorch, numpy, pandas
+- **Python 3.8+** with pip
+- **Node.js 18+** with npm
 
 ### Installation
 
+**1. Clone the repository**
 ```bash
+git clone https://github.com/PeakScripter/Neural-Visualizer.git
+cd Neural-Visualizer
+```
+
+**2. Set up the backend**
+```bash
+cd backend
 pip install -r requirements.txt
 ```
 
-### Running the Application
-
+**3. Set up the frontend**
 ```bash
-python Visualization.py
+cd frontend
+npm install
 ```
 
-Then open your browser and navigate to `http://localhost:8050`
+### Running the App
 
-## Usage
+**Option A — Start both servers with one command (Linux/macOS)**
+```bash
+chmod +x start.sh
+./start.sh
+```
 
-1. Select a model type and problem type
-2. Configure network architecture using the sliders and dropdowns
-3. Click "Build Network" to visualize the architecture
-4. Explore forward and backward propagation using the step sliders
-5. View decision boundaries and loss landscapes in their respective tabs
+**Option B — Start each server separately**
 
-## License
+Terminal 1 (Backend):
+```bash
+cd backend
+uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+```
 
-This project is licensed under the GNU - see the LICENSE file for details.
+Terminal 2 (Frontend):
+```bash
+cd frontend
+npm run dev
+```
 
+Then open your browser at **http://localhost:5173**
+
+> **Note:** The backend runs on port `8000` and the frontend dev server on port `5173`. The frontend proxies API calls to the backend.
+
+---
+
+## 📖 Usage
+
+1. **Select a model type** (ANN, CNN, RNN, LSTM, GAN, Transformer, Diffuser) and configure layers & activations
+2. **Click "Build Network"** to generate the architecture graph
+3. **Explore tabs** — switch between Architecture, Forward/Backward Propagation, Weights, Activations, and more
+4. **Toggle 2D/3D** to view the network in an interactive Three.js scene
+5. **Configure training parameters** (dataset, noise, learning rate, batch size, epochs) and click **"Simulate Training"**
+6. **View results** — training curves, decision boundaries, and loss landscapes
+7. **Try Live Training** — train in-browser with TensorFlow.js and watch loss/accuracy update in real-time
+8. **Launch Cinema Mode** for a narrated, auto-playing walkthrough of forward propagation
+9. **Export code** — generate PyTorch or Keras code for your architecture and copy it to your clipboard
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|---|---|---|
+| `GET` | `/api/health` | Health check |
+| `POST` | `/api/build-network` | Build network graph from config |
+| `GET` | `/api/network-graph` | Get current network graph |
+| `POST` | `/api/forward-propagation` | Compute forward propagation steps |
+| `POST` | `/api/backward-propagation` | Compute backward propagation steps |
+| `POST` | `/api/decision-boundary` | Compute decision boundary |
+| `POST` | `/api/loss-landscape` | Compute loss landscape surface |
+| `POST` | `/api/simulate-training` | Run simulated training |
+| `POST` | `/api/dataset` | Generate dataset preview |
+
+---
+
+## 📄 License
+
+This project is licensed under the **GNU General Public License v3.0** — see the [LICENSE](LICENSE) file for details.
