@@ -24,9 +24,7 @@
 ## 🎬 Demo
 
 <p align="center">
-  <video src="assets/demo.mp4" width="100%" controls autoplay muted loop>
-    Your browser does not support the video tag.
-  </video>
+https://github.com/user-attachments/assets/fc5b9114-0085-40b6-bdf9-fa3208ce19ff
 </p>
 
 ---
