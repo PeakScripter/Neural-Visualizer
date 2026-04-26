@@ -23,9 +23,9 @@
 
 ## 🎬 Demo
 
-<p align="center">
+<!-- <p align="center"> -->
 https://github.com/user-attachments/assets/fc5b9114-0085-40b6-bdf9-fa3208ce19ff
-</p>
+<!-- </p> -->
 
 ---
 
