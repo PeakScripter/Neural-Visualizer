@@ -24,7 +24,9 @@
 ## 🎬 Demo
 
 <p align="center">
-  [Demo Video](https://github.com/PeakScripter/Neural-Visualizer/raw/main/assets/demo.mp4)
+  <video src="assets/demo.mp4" width="100%" controls autoplay muted loop>
+    Your browser does not support the video tag.
+  </video>
 </p>
 
 ---
